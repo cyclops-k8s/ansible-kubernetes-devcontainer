@@ -82,10 +82,11 @@ jobs:
           exit-code: 0
           format: json
           hide-progress: true
-          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
           input: /tmp/output.tar
           list-all-pkgs: true
           output: trivy-report.json
+          # scan-type: image
           scanners: vuln,secret,config,license
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           vuln-type: os,library
