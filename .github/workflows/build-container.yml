@@ -10,7 +10,7 @@ env:
   IMAGE_NAME: ansible-kubernetes-devcontainer
 jobs:
   build-and-push-image:
-    runs-on: cyclops-k8s-runners
+    runs-on: wc-cyclops-k8s-amd64
     permissions:
       contents: read
       # attestations: write
