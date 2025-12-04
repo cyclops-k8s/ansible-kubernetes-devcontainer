@@ -64,136 +64,141 @@ jobs:
       - name: List /tmp files
         run: ls -alh /tmp
 
-      # - name: Generate Trivy json report
-      #   uses: aquasecurity/trivy-action@0.33.1
-      #   # env:
-      #   #   TRIVY_SKIP_DB_UPDATE: true
-      #   #   TRIVY_SKIP_JAVA_DB_UPDATE: true
-      #   with:
-      #     exit-code: 0
-      #     format: json
-      #     hide-progress: true
-      #     image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-      #     list-all-pkgs: true
-      #     output: trivy-report.json
-      #     scanners: vuln,secret,config,license
-      #     severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
-      #     vuln-type: os,library
+      - name: Generate Trivy json report
+        uses: aquasecurity/trivy-action@0.33.1
+        # env:
+        #   TRIVY_SKIP_DB_UPDATE: true
+        #   TRIVY_SKIP_JAVA_DB_UPDATE: true
+        with:
+          exit-code: 0
+          format: json
+          hide-progress: true
+          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /tmp/output.tar.gz
+          list-all-pkgs: true
+          output: trivy-report.json
+          scanners: vuln,secret,config,license
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          vuln-type: os,library
 
-      # - name: Upload Trivy json report
-      #   uses: actions/upload-artifact@v5
-      #   with:
-      #     name: trivy-report-json
-      #     path: trivy-report.json
-      #     retention-days: 30
+      - name: Upload Trivy json report
+        uses: actions/upload-artifact@v5
+        with:
+          name: trivy-report-json
+          path: trivy-report.json
+          retention-days: 30
 
-      # - name: Generate Trivy html report
-      #   uses: aquasecurity/trivy-action@0.33.1
-      #   with:
-      #     exit-code: 0
-      #     format: template
-      #     hide-progress: true
-      #     image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-      #     list-all-pkgs: true
-      #     output: trivy-report.html
-      #     scanners: vuln,config
-      #     severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
-      #     skip-setup-trivy: true
-      #     template: "@$HOME/.local/bin/trivy-bin/contrib/html.tpl"
-      #     vuln-type: os,library
+      - name: Generate Trivy html report
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          exit-code: 0
+          format: template
+          hide-progress: true
+          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /tmp/output.tar.gz
+          list-all-pkgs: true
+          output: trivy-report.html
+          scanners: vuln,config
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          skip-setup-trivy: true
+          template: "@$HOME/.local/bin/trivy-bin/contrib/html.tpl"
+          vuln-type: os,library
 
-      # - name: Upload Trivy html report
-      #   uses: actions/upload-artifact@v5
-      #   with:
-      #     name: trivy-report-html
-      #     path: trivy-report.html
-      #     retention-days: 30
+      - name: Upload Trivy html report
+        uses: actions/upload-artifact@v5
+        with:
+          name: trivy-report-html
+          path: trivy-report.html
+          retention-days: 30
 
-      # - name: Generate Trivy XML report
-      #   uses: aquasecurity/trivy-action@0.33.1
-      #   with:
-      #     exit-code: 0
-      #     format: template
-      #     hide-progress: true
-      #     image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-      #     list-all-pkgs: true
-      #     output: trivy-report.xml
-      #     scanners: vuln,secret,config,license
-      #     severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
-      #     skip-setup-trivy: true
-      #     template: "@$HOME/.local/bin/trivy-bin/contrib/junit.tpl"
-      #     vuln-type: os,library
+      - name: Generate Trivy XML report
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          exit-code: 0
+          format: template
+          hide-progress: true
+          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /tmp/output.tar.gz
+          list-all-pkgs: true
+          output: trivy-report.xml
+          scanners: vuln,secret,config,license
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          skip-setup-trivy: true
+          template: "@$HOME/.local/bin/trivy-bin/contrib/junit.tpl"
+          vuln-type: os,library
 
-      # - name: Upload Trivy XML report
-      #   uses: actions/upload-artifact@v5
-      #   with:
-      #     name: trivy-report-xml
-      #     path: trivy-report.xml
-      #     retention-days: 30
+      - name: Upload Trivy XML report
+        uses: actions/upload-artifact@v5
+        with:
+          name: trivy-report-xml
+          path: trivy-report.xml
+          retention-days: 30
 
-      # - name: Generate Trivy table report
-      #   uses: aquasecurity/trivy-action@0.33.1
-      #   with:
-      #     exit-code: 0
-      #     format: table
-      #     hide-progress: true
-      #     image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-      #     list-all-pkgs: true
-      #     output: trivy-report.txt
-      #     scanners: vuln,secret,config,license
-      #     severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
-      #     skip-setup-trivy: true
-      #     vuln-type: os,library
+      - name: Generate Trivy table report
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          exit-code: 0
+          format: table
+          hide-progress: true
+          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /tmp/output.tar.gz
+          list-all-pkgs: true
+          output: trivy-report.txt
+          scanners: vuln,secret,config,license
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          skip-setup-trivy: true
+          vuln-type: os,library
 
-      # - name: Publish Trivy Output to Summary
-      #   run: |
-      #     if [[ -s trivy-report.txt ]]
-      #     then
-      #       {
-      #         echo "### Security Output"
-      #         echo "<details><summary>Click to expand</summary>"
-      #         echo ""
-      #         echo '```terraform'
-      #         cat trivy-report.txt
-      #         echo '```'
-      #         echo "</details>"
-      #       } >> $GITHUB_STEP_SUMMARY
-      #     else
-      #       echo "No security issues found using Trivy :)" >> $GITHUB_STEP_SUMMARY
-      #     fi
+      - name: Publish Trivy Output to Summary
+        run: |
+          if [[ -s trivy-report.txt ]]
+          then
+            {
+              echo "### Security Output"
+              echo "<details><summary>Click to expand</summary>"
+              echo ""
+              echo '```terraform'
+              cat trivy-report.txt
+              echo '```'
+              echo "</details>"
+            } >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No security issues found using Trivy :)" >> $GITHUB_STEP_SUMMARY
+          fi
 
-      # # - name: Generate Trivy sarif report
-      # #   uses: aquasecurity/trivy-action@0.33.1
-      # #   with:
-      # #     exit-code: 0
-      # #     format: sarif
-      # #     hide-progress: true
-      # #     list-all-pkgs: true
-      # #     output: trivy-report.sarif
-      # #     scanners: vuln,secret,config,license
-      # #     severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
-      # #     skip-setup-trivy: true
-      # #     vuln-type: os,library
+      - name: Generate Trivy sarif report
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          exit-code: 0
+          format: sarif
+          hide-progress: true
+          list-all-pkgs: true
+          output: trivy-report.sarif
+          scanners: vuln,secret,config,license
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          skip-setup-trivy: true
+          vuln-type: os,library
 
-      # # - name: Upload Trivy sarif report
-      # #   uses: github/codeql-action/upload-sarif@v3
-      # #   with:
-      # #     sarif_file: trivy-reeport.sarif
+      - name: Upload Trivy sarif report
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-reeport.sarif
 
-      # - name: Scan image with Trivy
-      #   id: trivy
-      #   uses: aquasecurity/trivy-action@0.33.1
-      #   with:
-      #     exit-code: 1
-      #     format: table
-      #     hide-progress: true
-      #     image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-      #     ignore-unfixed: true
-      #     list-all-pkgs: true
-      #     scanners: vuln,secret,config,license
-      #     severity: CRITICAL
-      #     skip-setup-trivy: true
-      #     vuln-type: os,library
+      - name: Scan image with Trivy
+        id: trivy
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          exit-code: 1
+          format: table
+          hide-progress: true
+          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /tmp/output.tar.gz
+          ignore-unfixed: true
+          list-all-pkgs: true
+          scanners: vuln,secret,config,license
+          severity: CRITICAL
+          skip-setup-trivy: true
+          vuln-type: os,library
 
       # - name: Scan image with Anchore
       #   id: scan
