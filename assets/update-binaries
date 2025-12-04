@@ -1,7 +1,10 @@
 #!/usr/bin/bash -e
 
+# Cleanup when exiting due to a failure
+trap 'rm -rf "/tmp/output"' EXIT
+
 github_latest_release() {
-  curl --silent "https://api.github.com/repos/${1}/releases/latest" | # Download the url
+  curl --fail --silent "https://api.github.com/repos/${1}/releases/latest" | # Download the url
   jq -r .tag_name                                                     # Get release version
 }
 
@@ -69,7 +72,7 @@ echo "${BINFILE} updated to version ${VERSION}"
 
 # Kubectl
 BINFILE=kubectl
-VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt)
+VERSION=$(curl --fail --location --silent https://dl.k8s.io/release/stable.txt)
 mkdir /tmp/output
 wget "https://dl.k8s.io/release/${VERSION}/bin/${FLAVOR}/${ARCH}/kubectl" -O "/tmp/output/${BINFILE}"
 mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"

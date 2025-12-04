@@ -7,8 +7,6 @@ chmod 700 ~/.ssh
 # Copy the SSH files from the host if they exist
 if [ -d /host/.ssh ]
 then
-  mkdir -p ~/.ssh
-  chmod 700 ~/.ssh
   cp -r /host/.ssh/* ~/.ssh/
   chmod 600 ~/.ssh/*
 fi
