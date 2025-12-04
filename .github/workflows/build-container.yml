@@ -63,15 +63,16 @@ jobs:
 
       - name: Extract output.tar
         run: |
-          sudo apt install --yes file
+          # sudo apt install --yes file
           ls -alh /tmp
-          file /tmp/output.tar
+          # file /tmp/output.tar
           mkdir /tmp/output
           tar xf /tmp/output.tar -C /tmp/output
-          ls -alhR /tmp/output
-          file /tmp/output/*
-          du -ch /tmp/output
-          find /tmp/output
+          # ls -alhR /tmp/output
+          # file /tmp/output/*
+          # du -ch /tmp/output
+          # find /tmp/output
+          cat /tmp/output/index.json
 
       - name: Generate Trivy json report
         uses: aquasecurity/trivy-action@0.33.1
@@ -83,7 +84,7 @@ jobs:
           format: json
           hide-progress: true
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          input: /tmp/output.tar
+          input: /tmp/output
           list-all-pkgs: true
           output: trivy-report.json
           # scan-type: image
