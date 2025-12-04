@@ -100,7 +100,7 @@ jobs:
           template: "@$HOME/.local/bin/trivy-bin/contrib/html.tpl"
           vuln-type: os,library
 
-      - name: Upload Trivy html report
+      - name: Upload Trivy HTML report
         uses: actions/upload-artifact@v5
         with:
           name: trivy-report-html
@@ -167,6 +167,8 @@ jobs:
         with:
           exit-code: 0
           format: sarif
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /home/runner/_work/extracted_image
           hide-progress: true
           list-all-pkgs: true
           output: trivy-report.sarif
