@@ -61,8 +61,15 @@ jobs:
       - name: List container images
         run: docker image ls -a
 
-      - name: List /tmp files
-        run: ls -alh /tmp
+      - name: Extract output.tar
+        run: |
+          ls -alh /tmp
+          file /tmp/output.tar
+          mkdir /tmp/output
+          tar xf /tmp/output.tar -C /tmp/output
+          du -ch /tmp/output
+          ls -alhR /tmp/output
+          find /tmp/output
 
       - name: Generate Trivy json report
         uses: aquasecurity/trivy-action@0.33.1
