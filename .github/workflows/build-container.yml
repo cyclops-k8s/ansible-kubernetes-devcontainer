@@ -52,6 +52,10 @@ jobs:
         with:
           node-version: latest
 
+      - name: Skopeo login to registry
+        run: echo "${{ secrets.QUAY_TOKEN }}" | skopeo login quay.io --username "${{ secrets.QUAY_USER }}" --password-stdin
+
+
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
@@ -64,6 +68,9 @@ jobs:
 
       - name: List container images
         run: docker image ls -a
+
+      - name: List /tmp files
+        run: ls -alh /tmp
 
       # - name: Generate Trivy json report
       #   uses: aquasecurity/trivy-action@0.33.1
