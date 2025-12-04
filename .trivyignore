@@ -1,0 +1,5 @@
+# his Dockerfile.j2 file is installed with pipx.
+AVD-DS-0011
+
+# There are no healthchecks for dev containers.
+AVD-DS-0026
