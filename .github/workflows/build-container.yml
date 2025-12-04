@@ -70,6 +70,7 @@ jobs:
           du -ch /tmp/output
           ls -alhR /tmp/output
           find /tmp/output
+          file /tmp/output/*
 
       - name: Generate Trivy json report
         uses: aquasecurity/trivy-action@0.33.1
