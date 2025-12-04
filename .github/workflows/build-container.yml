@@ -55,7 +55,6 @@ jobs:
       - name: Skopeo login to registry
         run: echo "${{ secrets.QUAY_TOKEN }}" | skopeo login quay.io --username "${{ secrets.QUAY_USER }}" --password-stdin
 
-
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
