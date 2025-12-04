@@ -1,0 +1,58 @@
+#!/usr/bin/bash -e
+
+# Ensure the .ssh directory exists with correct permissions
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+
+# Copy the SSH files from the host if they exist
+if [ -d /host/.ssh ]
+then
+  mkdir -p ~/.ssh
+  chmod 700 ~/.ssh
+  cp -r /host/.ssh/* ~/.ssh/
+  chmod 600 ~/.ssh/*
+fi
+
+# Generate a new SSH key for the devcontainer
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/devcontainer.id_rsa -N '' -C 'devcontainer'
+
+# Add SSH config entries
+cat << EOF >> ~/.ssh/config
+Host *.k8s.local
+    HostName localhost
+    IdentityFile ~/.ssh/devcontainer.id_rsa
+    StrictHostKeyChecking no
+    User ansible
+    UserKnownHostsFile /dev/null
+
+Host px.k8s.local
+    Port 2021
+
+Host cp1.k8s.local
+    Port 2022
+
+Host cp2.k8s.local
+    Port 2023
+
+Host cp3.k8s.local
+    Port 2024
+
+Host w1.k8s.local
+    Port 2025
+
+Host w2.k8s.local
+    Port 2026
+EOF
+
+# If arguments are passed to the entrypoint, execute them
+if [ -n "$*" ]
+then
+	set -- "$@"
+else
+    # Keep the container running
+    echo "No command provided to entrypoint, starting sleep infinity"
+    set -- sleep infinity
+fi
+
+# Execute the command
+exec "$@"

@@ -1,0 +1,21 @@
+filetype indent on
+filetype plugin on
+
+set background=dark
+set cul
+set ignorecase
+set incsearch
+set laststatus=2
+set modeline
+set mouse=a
+set number
+set paste
+set ruler
+set scrolloff=5
+set showmatch
+set title
+
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif

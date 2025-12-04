@@ -1,0 +1,125 @@
+#!/usr/bin/bash -e
+
+github_latest_release() {
+  curl --silent "https://api.github.com/repos/${1}/releases/latest" | # Download the url
+  jq -r .tag_name                                                     # Get release version
+}
+
+# TODO: Detect architecture and the flavor dynamically.
+# Most typically, the arch will be amd64 or arm64, and the flavor will be linux or darwin.
+ARCH=amd64
+FLAVOR=linux
+
+# Argo CD
+BINFILE=argocd
+REPO=argoproj/argo-cd
+VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
+mkdir /tmp/output
+wget "https://github.com/${REPO}/releases/download/${VERSION}/${BINFILE}-${FLAVOR}-${ARCH}" -O "/tmp/output/${BINFILE}"
+mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"
+
+# Calicoctl
+BINFILE=calicoctl
+REPO=projectcalico/calico
+VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
+mkdir /tmp/output
+wget "https://github.com/${REPO}/releases/download/${VERSION}/${BINFILE}-${FLAVOR}-${ARCH}" -O "/tmp/output/${BINFILE}"
+mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"
+
+# Cilium CLI
+BINFILE=cilium
+REPO=cilium/cilium-cli
+VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
+mkdir /tmp/output
+wget "https://github.com/${REPO}/releases/download/${VERSION}/${BINFILE}-${FLAVOR}-${ARCH}.tar.gz" -O "/tmp/output/${BINFILE}.tar.gz"
+tar zxf "/tmp/output/${BINFILE}.tar.gz" -C /tmp/output
+mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"
+
+# cert-manager
+BINFILE=cmctl
+REPO=cert-manager/cmctl
+VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
+mkdir /tmp/output
+wget "https://github.com/${REPO}/releases/download/${VERSION}/${BINFILE}_${FLAVOR}_${ARCH}" -O "/tmp/output/${BINFILE}"
+mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"
+
+# Helm
+BINFILE=helm
+REPO=helm/helm
+VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
+mkdir /tmp/output
+wget "https://get.helm.sh/${BINFILE}-${VERSION}-${FLAVOR}-${ARCH}.tar.gz" -O "/tmp/output/${BINFILE}.tar.gz"
+tar zxf "/tmp/output/${BINFILE}.tar.gz" -C /tmp/output
+mv "/tmp/output/${FLAVOR}-${ARCH}/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"
+
+# Kubectl
+BINFILE=kubectl
+VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt)
+mkdir /tmp/output
+wget "https://dl.k8s.io/release/${VERSION}/bin/${FLAVOR}/${ARCH}/kubectl" -O "/tmp/output/${BINFILE}"
+mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"
+
+# Kubeseal
+BINFILE=kubeseal
+REPO=bitnami-labs/sealed-secrets
+VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
+mkdir /tmp/output
+wget "https://github.com/${REPO}/releases/download/${VERSION}/${BINFILE}-${VERSION/v/}-${FLAVOR}-${ARCH}.tar.gz" -O "/tmp/output/${BINFILE}.tar.gz"
+tar zxf "/tmp/output/${BINFILE}.tar.gz" -C /tmp/output
+mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"
+
+# Kustomize
+BINFILE=kustomize
+REPO=kubernetes-sigs/kustomize
+VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
+mkdir /tmp/output
+wget "https://github.com/${REPO}/releases/download/${BINFILE}%2F${VERSION}/${BINFILE}_${VERSION}_${FLAVOR}_${ARCH}.tar.gz" -O "/tmp/output/${BINFILE}.tar.gz"
+tar zxf "/tmp/output/${BINFILE}.tar.gz" -C /tmp/output
+mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"
+
+# OpenToFu
+BINFILE=tofu
+REPO=opentofu/opentofu
+VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
+mkdir /tmp/output
+wget "https://github.com/${REPO}/releases/download/${VERSION}/${BINFILE}_${VERSION/v/}_${FLAVOR}_${ARCH}.tar.gz" -O "/tmp/output/${BINFILE}.tar.gz"
+tar zxf "/tmp/output/${BINFILE}.tar.gz" -C /tmp/output
+mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"
+
+# Virtctl
+BINFILE=virtctl
+REPO=kubevirt/kubevirt
+VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
+mkdir /tmp/output
+wget "https://github.com/${REPO}/releases/download/${VERSION}/${BINFILE}-${VERSION}-${FLAVOR}-${ARCH}" -O "/tmp/output/${BINFILE}"
+mv "/tmp/output/${BINFILE}" ~/.local/bin/"${BINFILE}"
+rm -rf /tmp/output
+chmod +x ~/.local/bin/"${BINFILE}"
+echo "${BINFILE} updated to version ${VERSION}"

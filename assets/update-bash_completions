@@ -1,0 +1,23 @@
+#!/usr/bin/bash -e
+
+# Make the user's bash completion directory
+mkdir -p ~/.local/share/bash-completion/completions
+
+# List of commands to loop through
+for cmd in argocd cilium cmctl helm kubectl kustomize virtctl
+do
+    # Make sure the command exists
+    if which "${cmd}" > /dev/null 2>&1
+    then
+        # Create a bash completion file
+        echo "${cmd}: updating bash completions"
+        "${cmd}" completion bash > ~/.local/share/bash-completion/completions/"${cmd}"
+    fi
+done
+
+# Commands that generate the bash completion a different way
+which tofu && tofu -install-autocomplete
+
+echo "Bash completions updated."
+echo "To enable them, run: "
+echo "  source ~/.bashrc"
