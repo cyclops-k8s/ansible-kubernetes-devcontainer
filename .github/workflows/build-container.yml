@@ -63,7 +63,7 @@ jobs:
 
       - name: Extract output.tar
         run: |
-          apt install --yes file
+          sudo apt install --yes file
           ls -alh /tmp
           file /tmp/output.tar
           mkdir /tmp/output
