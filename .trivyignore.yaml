@@ -1,5 +1,5 @@
 misconfigurations:
 - id: AVD-DS-0011
   paths:
-  - home/vscode/.local/share/pipx/venvs/ansible-core/lib/python3.12/site-packages/ansible/galaxy/data/apb/Dockerfile.j2
+  - "home/vscode/.local/share/pipx/venvs/ansible-core/lib/python3.12/site-packages/ansible/galaxy/data/apb/Dockerfile.j2"
   statement: This Dockerfile.j2 file is installed with pipx
