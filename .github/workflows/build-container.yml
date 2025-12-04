@@ -20,7 +20,7 @@ jobs:
         run: env
 
       - name: Check out repository code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
@@ -57,7 +57,7 @@ jobs:
         with:
           # cacheFrom: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}
           imageName: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}
-          imageTag: latest,ubuntu-lts,ubuntu-lts-24.04
+          imageTag: latest #,ubuntu-lts,ubuntu-lts-24.04
           platform: linux/amd64 #,linux/arm64
           push: never
           runCmd: echo
@@ -82,7 +82,7 @@ jobs:
           vuln-type: os,library
 
       - name: Upload Trivy json report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: trivy-report-json
           path: trivy-report.json
@@ -104,7 +104,7 @@ jobs:
           vuln-type: os,library
 
       - name: Upload Trivy html report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: trivy-report-html
           path: trivy-report.html
@@ -126,7 +126,7 @@ jobs:
           vuln-type: os,library
 
       - name: Upload Trivy XML report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: trivy-report-xml
           path: trivy-report.xml
@@ -198,7 +198,7 @@ jobs:
 
       - name: Scan image with Anchore
         id: scan
-        uses: anchore/scan-action@v6
+        uses: anchore/scan-action@v7
         with:
           fail-build: true
           image: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
