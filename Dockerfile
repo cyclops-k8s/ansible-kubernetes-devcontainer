@@ -42,6 +42,7 @@ RUN apt-get install --no-install-recommends --yes \
             jq \
             kubectx \
             libguestfs-tools \
+            libonig-dev \
             man-db \
             net-tools \
             ovmf \
