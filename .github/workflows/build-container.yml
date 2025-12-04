@@ -6,7 +6,7 @@ on:
     branches: [main]
 env:
   REGISTRY: quay.io
-  IMAGE_REPOSITORY: cyclops-k8s/ansible-kubernetes-devcontainer
+  IMAGE_REPOSITORY: cyclops-k8s
   IMAGE_NAME: ansible-kubernetes-devcontainer
 jobs:
   build-and-push-image:
@@ -32,23 +32,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # - name: Extract metadata for Docker
-      #   id: meta
-      #   uses: docker/metadata-action@v5
-      #   with:
-      #     images: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}
-
-      # - name: Set up QEMU for multi-architecture builds
-      #   uses: docker/setup-qemu-action@v3
-      #   with:
-      #     platforms: arm64
-
-      - name: Install node dependencies
+      - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y libatomic1 skopeo
+          sudo apt install --no-install-recommends --yes libatomic1 skopeo
 
-      - uses: actions/setup-node@v6
+      - name: Setup node
+        uses: actions/setup-node@v6
         with:
           node-version: latest
 
