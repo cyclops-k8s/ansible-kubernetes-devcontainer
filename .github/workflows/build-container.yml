@@ -43,6 +43,8 @@ jobs:
         with:
           platforms: arm64
 
+      - uses: actions/setup-node@v6
+
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
