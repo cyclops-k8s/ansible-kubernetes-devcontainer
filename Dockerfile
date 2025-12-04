@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04 AS build
 
-ARG vscode
+ARG devcontainercli
 RUN if [ -z "$devcontainercli" ]; then printf "\nERROR: This Dockerfile needs to be built with VS Code!" && exit 1; else printf "VS Code is detected: $devcontainercli"; fi
 
 RUN apt-get update \
