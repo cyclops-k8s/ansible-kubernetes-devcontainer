@@ -12,9 +12,9 @@ jobs:
   build-and-push-image:
     runs-on: wc-cyclops-k8s-amd64
     permissions:
+      attestations: write
       contents: read
-      # attestations: write
-      # id-token: write
+      id-token: write
     steps:
       - name: Get environment variables
         run: env
@@ -153,9 +153,7 @@ jobs:
               echo "### Security Output"
               echo "<details><summary>Click to expand</summary>"
               echo ""
-              echo '```terraform'
               cat trivy-report.txt
-              echo '```'
               echo "</details>"
             } >> $GITHUB_STEP_SUMMARY
           else
@@ -180,7 +178,7 @@ jobs:
       - name: Upload Trivy sarif report
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: trivy-reeport.sarif
+          sarif_file: trivy-report.sarif
 
       - name: Scan image with Trivy
         id: trivy
