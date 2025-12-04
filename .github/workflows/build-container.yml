@@ -15,6 +15,7 @@ jobs:
       attestations: write
       contents: read
       id-token: write
+      security-events: read
     steps:
       - name: Get environment variables
         run: env
@@ -176,7 +177,7 @@ jobs:
           vuln-type: os,library
 
       - name: Upload Trivy sarif report
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-report.sarif
 
