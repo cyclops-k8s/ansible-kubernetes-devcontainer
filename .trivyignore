@@ -1,4 +1,4 @@
-# his Dockerfile.j2 file is installed with pipx.
+# Ignore slashes at the end of COPY lines in Dockerfiles
 AVD-DS-0011
 
 # There are no healthchecks for dev containers.
