@@ -161,25 +161,25 @@ jobs:
             echo "No security issues found using Trivy :)" >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: Generate Trivy sarif report
-        uses: aquasecurity/trivy-action@0.33.1
-        with:
-          exit-code: 0
-          format: sarif
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          input: /home/runner/_work/extracted_image
-          hide-progress: true
-          list-all-pkgs: true
-          output: trivy-report.sarif
-          scanners: vuln,secret,config,license
-          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
-          skip-setup-trivy: true
-          vuln-type: os,library
+      # - name: Generate Trivy sarif report
+      #   uses: aquasecurity/trivy-action@0.33.1
+      #   with:
+      #     exit-code: 0
+      #     format: sarif
+      #     image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+      #     input: /home/runner/_work/extracted_image
+      #     hide-progress: true
+      #     list-all-pkgs: true
+      #     output: trivy-report.sarif
+      #     scanners: vuln,secret,config,license
+      #     severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+      #     skip-setup-trivy: true
+      #     vuln-type: os,library
 
-      - name: Upload Trivy sarif report
-        uses: github/codeql-action/upload-sarif@v4
-        with:
-          sarif_file: trivy-report.sarif
+      # - name: Upload Trivy sarif report
+      #   uses: github/codeql-action/upload-sarif@v4
+      #   with:
+      #     sarif_file: trivy-report.sarif
 
       - name: Scan image with Trivy
         id: trivy
