@@ -76,6 +76,7 @@ jobs:
           output: trivy-report.json
           scanners: vuln,secret,config,license
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          trivyignores: .trivyignore.yaml
           vuln-type: os,library
 
       - name: Upload Trivy json report
@@ -99,6 +100,7 @@ jobs:
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           skip-setup-trivy: true
           template: "@$HOME/.local/bin/trivy-bin/contrib/html.tpl"
+          trivyignores: .trivyignore.yaml
           vuln-type: os,library
 
       - name: Upload Trivy HTML report
@@ -122,6 +124,7 @@ jobs:
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           skip-setup-trivy: true
           template: "@$HOME/.local/bin/trivy-bin/contrib/junit.tpl"
+          trivyignores: .trivyignore.yaml
           vuln-type: os,library
 
       - name: Upload Trivy XML report
@@ -144,6 +147,7 @@ jobs:
           scanners: vuln,secret,config,license
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           skip-setup-trivy: true
+          trivyignores: .trivyignore.yaml
           vuln-type: os,library
 
       - name: Publish Trivy Output to Summary
@@ -174,6 +178,7 @@ jobs:
       #     scanners: vuln,secret,config,license
       #     severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
       #     skip-setup-trivy: true
+      #     trivyignores: .trivyignore.yaml
       #     vuln-type: os,library
 
       # - name: Upload Trivy sarif report
@@ -195,6 +200,7 @@ jobs:
           scanners: vuln,secret,config,license
           severity: CRITICAL
           skip-setup-trivy: true
+          trivyignores: .trivyignore.yaml
           vuln-type: os,library
 
       # - name: Scan image with Anchore
