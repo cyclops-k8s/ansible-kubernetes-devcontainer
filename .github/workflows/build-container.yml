@@ -186,7 +186,7 @@ jobs:
 
       - name: Scan image with Anchore
         id: scan
-        uses: anchore/scan-action@v6
+        uses: anchore/scan-action@v7
         with:
           fail-build: true
           image: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
