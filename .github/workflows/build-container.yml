@@ -55,24 +55,10 @@ jobs:
           push: always
           runCmd: echo
 
-      - name: Skopeo login to registry
-        run: echo "${{ secrets.QUAY_TOKEN }}" | skopeo login ${{ env.REGISTRY }} --username "${{ secrets.QUAY_USER }}" --password-stdin
-
-      - name: List container images
-        run: docker image ls -a
-
       - name: Extract output.tar
         run: |
-          # sudo apt install --yes file
-          ls -alh /tmp
-          # file /tmp/output.tar
-          mkdir /tmp/output
-          tar xf /tmp/output.tar -C /tmp/output
-          # ls -alhR /tmp/output
-          # file /tmp/output/*
-          # du -ch /tmp/output
-          # find /tmp/output
-          cat /tmp/output/index.json
+          mkdir /home/runner/_work/trivy_work/output
+          tar xf /tmp/output.tar -C /home/runner/_work/trivy_work/output
 
       - name: Generate Trivy json report
         uses: aquasecurity/trivy-action@0.33.1
@@ -84,10 +70,9 @@ jobs:
           format: json
           hide-progress: true
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          input: /tmp/output
+          input: /home/runner/_work/trivy_work/output
           list-all-pkgs: true
           output: trivy-report.json
-          # scan-type: image
           scanners: vuln,secret,config,license
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           vuln-type: os,library
@@ -105,8 +90,8 @@ jobs:
           exit-code: 0
           format: template
           hide-progress: true
-          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          input: /tmp/output.tar
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /home/runner/_work/trivy_work/output
           list-all-pkgs: true
           output: trivy-report.html
           scanners: vuln,config
@@ -128,8 +113,8 @@ jobs:
           exit-code: 0
           format: template
           hide-progress: true
-          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          input: /tmp/output.tar
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /home/runner/_work/trivy_work/output
           list-all-pkgs: true
           output: trivy-report.xml
           scanners: vuln,secret,config,license
@@ -151,8 +136,8 @@ jobs:
           exit-code: 0
           format: table
           hide-progress: true
-          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          input: /tmp/output.tar
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /home/runner/_work/trivy_work/output
           list-all-pkgs: true
           output: trivy-report.txt
           scanners: vuln,secret,config,license
@@ -202,8 +187,8 @@ jobs:
           exit-code: 1
           format: table
           hide-progress: true
-          # image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          input: /tmp/output.tar
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          input: /home/runner/_work/trivy_work/output
           ignore-unfixed: true
           list-all-pkgs: true
           scanners: vuln,secret,config,license
