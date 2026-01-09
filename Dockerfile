@@ -27,7 +27,7 @@ FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get dist-upgrade --auto-remove --purge --yes \
-    && yes | unminimize
+    && yes | unminimize \
     && apt-get install --no-install-recommends --yes \
             bind9-dnsutils \
             bridge-utils \
