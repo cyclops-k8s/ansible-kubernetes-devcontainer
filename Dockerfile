@@ -60,7 +60,7 @@ RUN apt-get install --no-install-recommends --yes \
 COPY --chmod=755 --chown=root:root assets/entrypoint /entrypoint
 COPY --from=build --chown=vscode:vscode /home/vscode/.ansible/collections /home/vscode/.ansible/collections
 COPY --from=build --chown=vscode:vscode /home/vscode/.local/bin /home/vscode/.local/bin
-COPY --from=build --chown=vscode:vscode /home/vscode/.local/share/bash-completion /home/vscode/.local/bash-completion
+COPY --from=build --chown=vscode:vscode /home/vscode/.local/share/bash-completion /home/vscode/.local/share/bash-completion
 COPY --from=build --chown=vscode:vscode /home/vscode/.local/share/pipx /home/vscode/.local/share/pipx
 COPY --chmod=600 --chown=vscode:vscode assets/vimrc /home/vscode/.vimrc
 
