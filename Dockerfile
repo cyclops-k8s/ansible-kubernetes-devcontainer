@@ -28,8 +28,7 @@ RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get dist-upgrade --auto-remove --purge --yes \
     && yes | unminimize
-
-RUN apt-get install --no-install-recommends --yes \
+    && apt-get install --no-install-recommends --yes \
             bind9-dnsutils \
             bridge-utils \
             cloud-utils \
