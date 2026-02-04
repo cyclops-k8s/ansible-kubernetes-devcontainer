@@ -12,7 +12,13 @@ then
 fi
 
 # Generate a new SSH key for the devcontainer
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/devcontainer.id_rsa -N '' -C 'devcontainer'
+if [ ! -f ~/.ssh/devcontainer.id_rsa ]
+then
+  echo "Creating new devcontainer VM ssh key"
+  ssh-keygen -t rsa -b 4096 -f ~/.ssh/devcontainer.id_rsa -N '' -C 'devcontainer'
+else
+  echo "Devcontainer SSH key already exists."
+fi
 
 # Add SSH config entries
 cat << EOF >> ~/.ssh/config
