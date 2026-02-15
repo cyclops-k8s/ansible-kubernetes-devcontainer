@@ -256,7 +256,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest
             type=sha,prefix={{date 'YYYY-MM-DD'}}-
