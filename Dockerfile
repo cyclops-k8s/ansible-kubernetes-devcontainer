@@ -29,6 +29,7 @@ RUN apt-get update \
     && apt-get dist-upgrade --auto-remove --purge --yes \
     && yes | unminimize \
     && apt-get install --no-install-recommends --yes \
+            bind9 \
             bind9-dnsutils \
             bridge-utils \
             cloud-utils \
