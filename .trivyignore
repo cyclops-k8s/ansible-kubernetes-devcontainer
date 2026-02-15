@@ -3,3 +3,6 @@ AVD-DS-0011
 
 # There are no healthchecks for dev containers.
 AVD-DS-0026
+
+# stdlib in 24.04 is not updated
+CVE-2025-68121
