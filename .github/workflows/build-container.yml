@@ -62,7 +62,7 @@ jobs:
           tar xf /tmp/output.tar -C /home/runner/_work/extracted_image
 
       - name: Generate Trivy json report
-        uses: aquasecurity/trivy-action@0.34.0
+        uses: aquasecurity/trivy-action@0.34.1
         # env:
         #   TRIVY_SKIP_DB_UPDATE: true
         #   TRIVY_SKIP_JAVA_DB_UPDATE: true
@@ -87,7 +87,7 @@ jobs:
           retention-days: 30
 
       - name: Generate Trivy html report
-        uses: aquasecurity/trivy-action@0.34.0
+        uses: aquasecurity/trivy-action@0.34.1
         with:
           exit-code: 0
           format: template
@@ -111,7 +111,7 @@ jobs:
           retention-days: 30
 
       - name: Generate Trivy XML report
-        uses: aquasecurity/trivy-action@0.34.0
+        uses: aquasecurity/trivy-action@0.34.1
         with:
           exit-code: 0
           format: template
@@ -135,7 +135,7 @@ jobs:
           retention-days: 30
 
       - name: Generate Trivy table report
-        uses: aquasecurity/trivy-action@0.34.0
+        uses: aquasecurity/trivy-action@0.34.1
         with:
           exit-code: 0
           format: table
@@ -166,7 +166,7 @@ jobs:
           fi
 
       # - name: Generate Trivy sarif report
-      #   uses: aquasecurity/trivy-action@0.34.0
+      #   uses: aquasecurity/trivy-action@0.34.1
       #   with:
       #     exit-code: 0
       #     format: sarif
@@ -188,7 +188,7 @@ jobs:
 
       - name: Scan image with Trivy
         id: trivy
-        uses: aquasecurity/trivy-action@0.34.0
+        uses: aquasecurity/trivy-action@0.34.1
         with:
           exit-code: 1
           format: table
