@@ -81,6 +81,11 @@ jobs:
           path: ${{ github.workspace }}/trivy-report.json
           retention-days: 30
 
+      - name: Download trivy html template
+        run: |
+          mkdir -p $HOME/.local/bin/trivy-bin/contrib
+          curl -L https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o ${{ github.workspace }}/trivy-html.tpl
+
       - name: Generate Trivy html report
         uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
         with:
@@ -93,7 +98,7 @@ jobs:
           output: ${{ github.workspace }}/trivy-report.html
           scanners: vuln,config
           skip-setup-trivy: true
-          template: "@$HOME/.local/bin/trivy-bin/contrib/html.tpl"
+          template: "@${{ github.workspace }}/trivy-html.tpl"
           trivyignores: .trivyignore
 
       - name: Upload Trivy HTML report
