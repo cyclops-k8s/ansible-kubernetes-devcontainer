@@ -60,9 +60,6 @@ jobs:
 
       - name: Generate Trivy json report
         uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
-        # env:
-        #   TRIVY_SKIP_DB_UPDATE: true
-        #   TRIVY_SKIP_JAVA_DB_UPDATE: true
         with:
           exit-code: 0
           format: json
@@ -74,19 +71,19 @@ jobs:
           scanners: vuln,secret,config,license
           trivyignores: .trivyignore
 
-      - name: Upload Trivy json report
+      - name: Upload Trivy JSON report
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: trivy-report-json
           path: ${{ github.workspace }}/trivy-report.json
           retention-days: 30
 
-      - name: Download trivy html template
+      - name: Download Trivy HTML template
         run: |
           mkdir -p $HOME/.local/bin/trivy-bin/contrib
           curl -L https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o ${{ github.workspace }}/trivy-html.tpl
 
-      - name: Generate Trivy html report
+      - name: Generate Trivy HTML report
         uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
         with:
           exit-code: 0
@@ -106,28 +103,6 @@ jobs:
         with:
           name: trivy-report-html
           path: ${{ github.workspace }}/trivy-report.html
-          retention-days: 30
-
-      - name: Generate Trivy XML report
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
-        with:
-          exit-code: 0
-          format: template
-          hide-progress: true
-          ignore-unfixed: true
-          input: ${{ github.workspace }}/image.tar
-          list-all-pkgs: true
-          output: ${{ github.workspace }}/trivy-report.xml
-          scanners: vuln,secret,config,license
-          skip-setup-trivy: true
-          template: "@$HOME/.local/bin/trivy-bin/contrib/junit.tpl"
-          trivyignores: .trivyignore
-
-      - name: Upload Trivy XML report
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-        with:
-          name: trivy-report-xml
-          path: ${{ github.workspace }}/trivy-report.xml
           retention-days: 30
 
       - name: Generate Trivy table report
