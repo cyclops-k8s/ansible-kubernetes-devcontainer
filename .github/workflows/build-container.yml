@@ -112,28 +112,12 @@ jobs:
           format: table
           hide-progress: true
           ignore-unfixed: true
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
           input: ${{ github.workspace }}/image.tar
           list-all-pkgs: true
           output: ${{ github.workspace }}/trivy-report.txt
           scanners: vuln,secret,config,license
           skip-setup-trivy: true
           trivyignores: .trivyignore
-
-      - name: Publish Trivy Output to Summary
-        run: |
-          if [[ -s ${{ github.workspace }}/trivy-report.txt ]]
-          then
-            {
-              echo "### Security Output"
-              echo "<details><summary>Click to expand</summary>"
-              echo ""
-              cat ${{ github.workspace }}/trivy-report.txt
-              echo "</details>"
-            } >> $GITHUB_STEP_SUMMARY
-          else
-            echo "No security issues found using Trivy :)" >> $GITHUB_STEP_SUMMARY
-          fi
 
       - name: Scan image with Trivy
         id: trivy
