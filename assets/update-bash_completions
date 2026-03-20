@@ -7,16 +7,16 @@ mkdir -p ~/.local/share/bash-completion/completions
 for cmd in argocd cilium cmctl helm kubectl kustomize virtctl
 do
     # Make sure the command exists
-    if which "${cmd}" > /dev/null 2>&1
+    if [ -f ~/.local/bin/"${cmd}" ]
     then
-        # Create a bash completion file
         echo "${cmd}: updating bash completions"
-        "${cmd}" completion bash > ~/.local/share/bash-completion/completions/"${cmd}"
+        # Create a bash completion file
+        ~/.local/bin/"${cmd}" completion bash > ~/.local/share/bash-completion/completions/"${cmd}"
     fi
 done
 
 # Commands that generate the bash completion a different way
-which tofu && tofu -install-autocomplete
+~/.local/bin/tofu -install-autocomplete
 
 echo "Bash completions updated."
 echo "To enable them, run: "

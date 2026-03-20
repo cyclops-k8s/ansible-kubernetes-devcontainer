@@ -11,16 +11,17 @@ RUN apt-get update \
 USER vscode
 
 COPY assets/ansible-galaxy-requirements.yaml /tmp/ansible-galaxy-requirements.yaml
-COPY --chmod=755 --chown=vscode:vscode assets/update-bash_completions /home/vscode/.local/bin/update-bash_completions
-COPY --chmod=755 --chown=vscode:vscode assets/update-binaries /home/vscode/.local/bin/update-binaries
 
 RUN pipx install --include-deps ansible-core \
  && pipx inject --include-apps --include-deps ansible-core ansible-dev-tools ansible-lint \
  && pipx inject ansible-core dnspython \
  && PATH="${PATH}:/home/vscode/.local/bin" ansible-galaxy collection install -r /tmp/ansible-galaxy-requirements.yaml
 
-RUN /home/vscode/.local/bin/update-binaries \
- && /home/vscode/.local/bin/update-bash_completions
+COPY --chmod=755 --chown=vscode:vscode assets/update-binaries /home/vscode/.local/bin/update-binaries
+RUN /home/vscode/.local/bin/update-binaries
+
+COPY --chmod=755 --chown=vscode:vscode assets/update-bash_completions /home/vscode/.local/bin/update-bash_completions
+RUN /home/vscode/.local/bin/update-bash_completions
 
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
@@ -62,6 +63,8 @@ COPY --from=build --chown=vscode:vscode /home/vscode/.ansible/collections /home/
 COPY --from=build --chown=vscode:vscode /home/vscode/.local/bin /home/vscode/.local/bin
 COPY --from=build --chown=vscode:vscode /home/vscode/.local/share/bash-completion /home/vscode/.local/share/bash-completion
 COPY --from=build --chown=vscode:vscode /home/vscode/.local/share/pipx /home/vscode/.local/share/pipx
+# TOFO installs bash completions directly in the .bashrc, so we need to copy it over as well
+COPY --from=build --chown=vscode:vscode /home/vscode/.bashrc /home/vscode/.bashrc
 COPY --chmod=600 --chown=vscode:vscode assets/vimrc /home/vscode/.vimrc
 
 USER vscode
