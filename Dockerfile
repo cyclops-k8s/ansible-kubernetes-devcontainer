@@ -63,7 +63,7 @@ COPY --from=build --chown=vscode:vscode /home/vscode/.ansible/collections /home/
 COPY --from=build --chown=vscode:vscode /home/vscode/.local/bin /home/vscode/.local/bin
 COPY --from=build --chown=vscode:vscode /home/vscode/.local/share/bash-completion /home/vscode/.local/share/bash-completion
 COPY --from=build --chown=vscode:vscode /home/vscode/.local/share/pipx /home/vscode/.local/share/pipx
-# TOFO installs bash completions directly in the .bashrc, so we need to copy it over as well
+# OpenTofu installs bash completions directly in the .bashrc, so we need to copy it over as well
 COPY --from=build --chown=vscode:vscode /home/vscode/.bashrc /home/vscode/.bashrc
 COPY --chmod=600 --chown=vscode:vscode assets/vimrc /home/vscode/.vimrc
 
