@@ -10,10 +10,7 @@ jobs:
     runs-on:
       group: Default
     permissions:
-      attestations: write
       contents: write
-      id-token: write
-      security-events: read
     steps:
 
       - name: Check out repository code
