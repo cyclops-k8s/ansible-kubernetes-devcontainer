@@ -53,6 +53,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: false
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Save image to tarball
         run: |
