@@ -35,6 +35,7 @@ RUN apt-get update \
             firewalld \
             genisoimage \
             git \
+            golang \
             iputils-ping \
             iputils-tracepath \
             jq \
