@@ -61,7 +61,7 @@ jobs:
           docker image save ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest -o ${{ github.workspace }}/image.tar
 
       - name: Generate Trivy json report
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           exit-code: 0
           format: json
@@ -86,7 +86,7 @@ jobs:
           curl -L https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o ${{ github.workspace }}/trivy-html.tpl
 
       - name: Generate Trivy HTML report
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           exit-code: 0
           format: template
@@ -108,7 +108,7 @@ jobs:
           retention-days: 30
 
       - name: Generate Trivy table report
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           exit-code: 0
           format: table
@@ -123,7 +123,7 @@ jobs:
 
       - name: Scan image with Trivy
         id: trivy
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           exit-code: 1
           format: table
