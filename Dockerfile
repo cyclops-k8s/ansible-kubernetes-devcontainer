@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04 AS build
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-26.04 AS build
 
 RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
@@ -20,7 +20,7 @@ RUN /home/vscode/.local/bin/update-binaries
 COPY --chmod=755 --chown=vscode:vscode assets/update-bash_completions /home/vscode/.local/bin/update-bash_completions
 RUN /home/vscode/.local/bin/update-bash_completions
 
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-26.04
 
 RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
