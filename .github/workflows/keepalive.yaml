@@ -22,25 +22,25 @@ jobs:
           # Get the date of the last commit in seconds since epoch
           LAST_COMMIT_DATE=$(git log -1 --format=%ct)
           CURRENT_DATE=$(date +%s)
-          
+
           # Calculate the difference in days
           DAYS_SINCE_COMMIT=$(( (CURRENT_DATE - LAST_COMMIT_DATE) / 86400 ))
-          
+
           echo "Days since last commit: $DAYS_SINCE_COMMIT"
-          
+
           if [ $DAYS_SINCE_COMMIT -gt 30 ]; then
             echo "Last commit was more than 30 days ago. Creating keepalive commit."
-            
+
             # Configure git
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            
+
             # Create a keepalive file with timestamp
             echo "Keepalive: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" > .keepalive
             git add .keepalive
             git commit -m "chore: keepalive commit for workflow"
             git push
-            
+
             echo "keepalive_changed=true" >> $GITHUB_OUTPUT
           else
             echo "Last commit was within 30 days. No keepalive needed."

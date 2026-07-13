@@ -82,7 +82,7 @@ echo "${BINFILE} updated to version ${VERSION}"
 
 # Kubeseal
 BINFILE=kubeseal
-REPO=bitnami-labs/sealed-secrets
+REPO=bitnami/sealed-secrets
 VERSION=$(github_latest_release "${REPO}" | grep -oE 'v[0-9]*\.[0-9]*\.[0-9]*')
 mkdir /tmp/output
 wget -nv "https://github.com/${REPO}/releases/download/${VERSION}/${BINFILE}-${VERSION/v/}-${FLAVOR}-${ARCH}.tar.gz" -O "/tmp/output/${BINFILE}.tar.gz"
