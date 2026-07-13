@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-26.04 AS build
+FROM mcr.microsoft.com/devcontainers/base:ubuntu26.04 AS build
 
 RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
@@ -20,11 +20,13 @@ RUN /home/vscode/.local/bin/update-binaries
 COPY --chmod=755 --chown=vscode:vscode assets/update-bash_completions /home/vscode/.local/bin/update-bash_completions
 RUN /home/vscode/.local/bin/update-bash_completions
 
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-26.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu26.04
 
 RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get dist-upgrade --auto-remove --purge --yes \
+    && apt-get install --no-install-recommends --yes \
+            unminimize \
     && yes | unminimize \
     && apt-get install --no-install-recommends --yes \
             bind9 \
@@ -40,7 +42,6 @@ RUN apt-get update \
             jq \
             kubectx \
             libguestfs-tools \
-            # libonig-dev \
             man-db \
             net-tools \
             ovmf \
