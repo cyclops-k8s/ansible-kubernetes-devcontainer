@@ -1,4 +1,6 @@
-#!/usr/bin/bash -e
+#!/bin/bash
+
+set -e
 
 # Ensure the .ssh directory exists with correct permissions
 mkdir -p ~/.ssh
@@ -7,8 +9,10 @@ chmod 700 ~/.ssh
 # Copy the SSH files from the host if they exist
 if [ -d /host/.ssh ]
 then
-  cp -r /host/.ssh/* ~/.ssh/
-  chmod 600 ~/.ssh/*
+  sudo cp -r /host/.ssh/. ~/.ssh/
+  sudo chown -R vscode:vscode ~/.ssh
+  find ~/.ssh -type d -exec chmod 700 {} +
+  find ~/.ssh -type f -exec chmod 600 {} +
 fi
 
 # Generate a new SSH key for the devcontainer
