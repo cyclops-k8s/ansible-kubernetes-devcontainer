@@ -5,10 +5,10 @@ misconfigurations:
   statement: This Dockerfile.j2 file is installed with pipx.
 
 secrets:
-- id: aws-secret-access-key
+- id: aws-access-key-id
   paths:
-  - home/vscode/.local/share/pipx/venvs/ansible/lib/python3.14/site-packages/ansible_collections/community/aws/plugins/modules/__pycache__/sts_session_token.cpython-314.pyc
-  - home/vscode/.local/share/pipx/venvs/ansible/lib/python3.14/site-packages/ansible_collections/community/aws/plugins/modules/sts_session_token.py
+  - /home/vscode/.local/share/pipx/venvs/ansible/lib/python3.14/site-packages/ansible_collections/community/aws/plugins/modules/__pycache__/sts_session_token.cpython-314.pyc
+  - /home/vscode/.local/share/pipx/venvs/ansible/lib/python3.14/site-packages/ansible_collections/community/aws/plugins/modules/sts_session_token.py
   statement: These are false positives.
 
 vulnerabilities:
