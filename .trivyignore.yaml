@@ -1,12 +1,8 @@
-#misconfigurations:
-#- id: AVD-DS-0011
-#  paths:
-#   - "/home/vscode/.local/share/pipx/venvs/ansible-core/lib/python3.12/site-packages/ansible/galaxy/data/apb/Dockerfile.j2"
-#  statement: This Dockerfile.j2 file is installed with pipx.
-#- id: AVD-DS-0026
-#  paths:
-#  - Dockerfile
-#  statement: Accepted risk. There are no healthchecks for dev containers.
+misconfigurations:
+- id: AVD-DS-0011
+  paths:
+  - /home/vscode/.local/share/pipx/venvs/ansible/lib/python3.14/site-packages/ansible/galaxy/data/apb/Dockerfile.j2
+  statement: This Dockerfile.j2 file is installed with pipx.
 
 secrets:
 - id: aws-secret-access-key
@@ -14,3 +10,9 @@ secrets:
   - /home/vscode/.local/share/pipx/venvs/ansible/lib/python*/site-packages/ansible_collections/community/aws/plugins/modules/__pycache__/sts_session_token.cpython-*.pyc
   - /home/vscode/.local/share/pipx/venvs/ansible/lib/python*/site-packages/ansible_collections/community/aws/plugins/modules/sts_session_token.py
   statement: These are false positives.
+
+vulnerabilities:
+- id: CVE-2025-68121
+  paths:
+  - /home/vscode/.local/bin/kustomize
+  statement: The kustomize project needs to update their dependencies.
