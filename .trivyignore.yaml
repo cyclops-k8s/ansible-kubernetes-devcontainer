@@ -7,8 +7,8 @@ misconfigurations:
 secrets:
 - id: aws-secret-access-key
   paths:
-  - /home/vscode/.local/share/pipx/venvs/ansible/lib/python*/site-packages/ansible_collections/community/aws/plugins/modules/__pycache__/sts_session_token.cpython-*.pyc
-  - /home/vscode/.local/share/pipx/venvs/ansible/lib/python*/site-packages/ansible_collections/community/aws/plugins/modules/sts_session_token.py
+  - home/vscode/.local/share/pipx/venvs/ansible/lib/python*/site-packages/ansible_collections/community/aws/plugins/modules/__pycache__/sts_session_token.cpython-*.pyc
+  - home/vscode/.local/share/pipx/venvs/ansible/lib/python*/site-packages/ansible_collections/community/aws/plugins/modules/sts_session_token.py
   statement: These are false positives.
 
 vulnerabilities:
