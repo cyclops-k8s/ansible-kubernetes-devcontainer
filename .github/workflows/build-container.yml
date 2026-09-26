@@ -55,9 +55,10 @@ jobs:
       with:
         context: ${{ env.CONTEXT }}
         file: ${{ env.DOCKERFILE }}
+        labels: ${{ steps.meta.outputs.labels }}
         load: true
         push: false
-        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+        tags: ${{ steps.meta.outputs.tags }}
 
     - name: Save image to tarball
       run: |
