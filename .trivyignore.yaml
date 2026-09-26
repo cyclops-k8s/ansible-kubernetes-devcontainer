@@ -1,3 +1,6 @@
+# Documentation:
+#   https://trivy.dev/docs/latest/configuration/filtering/
+
 misconfigurations:
 - id: AVD-DS-0011
   paths:
