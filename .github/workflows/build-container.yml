@@ -71,7 +71,7 @@ jobs:
           list-all-pkgs: true
           output: ${{ github.workspace }}/trivy-report.json
           scanners: vuln,secret,config,license
-          trivyignores: .trivyignore
+          trivyignores: .trivyignore.yaml
 
       - name: Upload Trivy JSON report
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
