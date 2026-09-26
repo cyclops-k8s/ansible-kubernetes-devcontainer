@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 # Cleanup when exiting due to a failure
 trap 'rm -rf "/tmp/output"' EXIT
