@@ -55,11 +55,11 @@ EOF
 # If arguments are passed to the entrypoint, execute them
 if [ -n "$*" ]
 then
-	set -- "$@"
+  set -- "$@"
 else
-    # Keep the container running
-    echo "No command provided to entrypoint, starting sleep infinity"
-    set -- sleep infinity
+  # Keep the container running
+  echo "No command provided to entrypoint, starting sleep infinity"
+  set -- sleep infinity
 fi
 
 # Execute the command
