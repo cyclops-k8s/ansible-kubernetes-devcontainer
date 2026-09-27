@@ -9,10 +9,13 @@ USER vscode
 
 COPY assets/ansible-galaxy-requirements.yaml /tmp/ansible-galaxy-requirements.yaml
 
-RUN pipx install --include-deps ansible-core \
- && pipx inject --include-apps --include-deps ansible-core ansible-dev-tools ansible-lint \
- && pipx inject ansible-core dnspython \
- && PATH="${PATH}:/home/vscode/.local/bin" ansible-galaxy collection install -r /tmp/ansible-galaxy-requirements.yaml
+RUN pipx install --include-deps ansible \
+    && pipx inject --include-apps --include-deps ansible ansible-dev-tools \
+    && pipx inject ansible dnspython \
+    && pipx inject --include-apps ansible jmespath \
+    && pipx inject --include-apps ansible netaddr \
+    && pipx inject --include-apps --include-deps ansible requests \
+    && PATH="${PATH}:/home/vscode/.local/bin" ansible-galaxy collection install -r /tmp/ansible-galaxy-requirements.yaml
 
 COPY --chmod=755 --chown=vscode:vscode assets/update-binaries /home/vscode/.local/bin/update-binaries
 RUN /home/vscode/.local/bin/update-binaries
