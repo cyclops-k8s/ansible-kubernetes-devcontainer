@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eou pipefail
 
 # Ensure the .ssh directory exists with correct permissions
 mkdir -p ~/.ssh

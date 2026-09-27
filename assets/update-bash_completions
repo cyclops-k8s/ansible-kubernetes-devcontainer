@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eou pipefail
 
 # Make the user's bash completion directory
 mkdir -p ~/.local/share/bash-completion/completions
